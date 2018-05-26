@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.smbms.dao.info.InformationsDao">
+
+	<!-- 
+	/**查询所有资源,并按最后修改时间降序 
+	 * @return
+	 */
+	List<Informations> findAll();
+	-->					 			 
+	<select id="findAll" resultType="Informations" >
+		select * from informations order by lastMdTime desc
+	</select>
+
+	
+<!-- 	/**c根据id查询相应的咨询 -->
+<!-- 	 * @param id -->
+<!-- 	 * @return -->
+<!-- 	 */ -->
+<!-- 	Informations findById(@Param("id")Long id); -->
+	<select id="findById" resultType="Informations">
+		select * from informations where id = #{id}
+	</select>
+	
+	
+<!-- 	/**修改查看次数 -->
+<!-- 	 * @param id -->
+<!-- 	 * @param viewCount -->
+<!-- 	 */ -->
+<!-- 	void updateViewCount(@Param("id")Long id,@Param("viewCount")Long viewCount); -->
+	<update id="updateViewCount">
+		update 
+			informations
+		set
+			viewCount = viewCount + 1
+		where 
+			id = #{id}
+	</update>
+	
+	
+	<!-- /**修改咨询的回复次数和最后修改时间
+	 * 
+	 */
+	void modifyReplyAndLastTime(@Param("id")Long id); -->
+	<update id="modifyReplyAndLastTime">
+		update 
+			informations
+		set
+			replyCount = replyCount + 1,
+			lastMdTime = now()
+		where 
+			id = #{id}
+	</update>
+	
+
+</mapper>
